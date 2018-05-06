@@ -1,0 +1,41 @@
+---
+title: "Optimal Prediction Workflow, CHTC edition"
+author: "Alex Linz"
+date: "May 1, 2018"
+output: html_document
+---
+
+#16S Best Practices
+Please cite xxx
+
+
+##Fast Run Instructions
+
+Appropriate uses of the fast run instructions:
+ - I don't care about parameters, I just want to see if your code works
+ - I've already run this 30 times and my advisor wants just one more change
+ - Give me the really short version of what you're doing
+
+Inappropriate uses:
+ - Reading this for your first pass through instead of the very detailed tutorial below
+ - Running this code on data that is not identical to the published dataset
+ - Anything that needs parameters tweaked or visual inspection of quality data
+
+```{bash, eval = F}
+# From the folder 16S_best_practices on a CHTC submit node:
+# Install python, qiime, and ea-utils (for read joining)
+condor_submit -i submits/install_qiime.sub
+
+# List UW sequenced samples that need to be processed
+./scripts/list_uw_samples.sh
+
+# QC UW samples to the same level as the EMP samples
+condor_submit submits/00uwbcquality_control.sub
+
+# Check for the results files
+ls -ltrh /mnt/gluster/amlinz/NTL-MO/UW-processed/
+
+# Make plots of the quality scores for both the UW and EMP samples
+
+
+```
