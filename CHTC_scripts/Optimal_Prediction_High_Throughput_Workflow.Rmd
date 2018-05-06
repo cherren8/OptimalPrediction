@@ -35,7 +35,22 @@ condor_submit submits/00uwbcquality_control.sub
 # Check for the results files
 ls -ltrh /mnt/gluster/amlinz/NTL-MO/UW-processed/
 
-# Make plots of the quality scores for both the UW and EMP samples
+# Make a list of all fastq and trimming length combinations to run
+# Need a list of the EMP samples too
+./scripts/list_EMP_samples.sh
+./scripts/setup_trimming.sh
+
+# Submit trimming scripts - can run concurrently
+condor_submit submits 01trim_uwbc_seqs.sub
+condor_submit submits 02trim_emp_seqs.sub
+
+# Check the results files
+ls -ltrh /mnt/gluster/amlinz/NTL-MO/trimmed_100/
+ls -ltrh /mnt/gluster/amlinz/NTL-MO/trimmed_130/
 
 
 ```
+
+##Full Instructions
+
+Put contents of scripts and explanations here
